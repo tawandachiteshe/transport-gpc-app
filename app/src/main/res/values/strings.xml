@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">TheAppThatNeverLies</string>
+    <string name="mapbox_access_token">pk.eyJ1IjoiZGlja2Vuc3Rhd2FuZGEiLCJhIjoiY2t0dW5hOG5wMjF3cTMwbXBmZnZkdnE3ZyJ9.rB3sV14JNpz2TZnYHOiI6Q</string>
+</resources>

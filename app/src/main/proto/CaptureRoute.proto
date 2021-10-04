@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+option java_package = "org.runhare.theappthatneverlies";
+option java_multiple_files = true;
+
+
+
+message RouteCapture {
+
+  message Location {
+    double longitude = 1;
+    double latitude = 2;
+  }
+
+  string routeName = 1;
+  string description = 2;
+  int32 vehicleCapacity = 3;
+  string vehicleType = 4;
+  int64 duration = 5;
+  repeated Location stops = 6;
+  repeated Location points = 8;
+  int32 passengers = 7;
+
+}

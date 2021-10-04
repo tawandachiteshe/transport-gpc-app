@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+option java_package = "org.runhare.theappthatneverlies";
+option java_multiple_files = true;
+
+message CaptureRoute {
+  // filter for showing / hiding completed tasks
+  bool show_completed = 1;
+}
