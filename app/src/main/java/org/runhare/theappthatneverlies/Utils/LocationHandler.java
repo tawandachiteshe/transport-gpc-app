@@ -67,7 +67,7 @@ public class LocationHandler {
             String msg="New Latitude: "+latitude + "New Longitude: "+longitude;
             Log.i("Tawanda", msg);
 
-            if(locations.size() != 0 && location.getAccuracy() > 5) {
+            if(locations.size() != 0) {
                 viewModel.setDistance(distanceFromLocation(locations.getLast(), location));
                 viewModel.setGpsAccuracy(locations.getLast().getAccuracy());
                 Log.i("Tawanda", "LocationPoints " + distanceFromLocation(locations.getLast(), location));

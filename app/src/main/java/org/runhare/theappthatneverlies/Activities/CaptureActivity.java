@@ -57,6 +57,8 @@ public class CaptureActivity extends AppCompatActivity {
     private int numberOfPassengers = 0;
     private ArrayList<Location> stopsList;
     private CaptureModel captureModel;
+    TextView gpsIndicator;
+    TextView distanceText;
     private CaptureViewModel viewModel = null;
     private MyDatastore myDatastore = null;
     private RouteCapture.Builder routeCaptureBuilder;
@@ -135,6 +137,19 @@ public class CaptureActivity extends AppCompatActivity {
 
     }
 
+    private void initializeLocationHandler() {
+        locationHandler = new LocationHandler(this);
+        locationHandler.setViewModel(viewModel);
+        locationHandler.getViewModel().setCaptureModel(captureModel);
+        locationHandler.getViewModel().getCapture().observe(this, captureModel -> {
+
+            double distance = (captureModel.getDistance() / 1000.0);
+            distanceText.setText(distance + "KM");
+            gpsIndicator.setText("GPS Accuracy: " + captureModel.getGpsAccuracy());
+
+        });
+
+    }
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -154,7 +169,6 @@ public class CaptureActivity extends AppCompatActivity {
         stopsList = new ArrayList<>();
         serviceIntent = new Intent(this, CaptureService.class);
         newCaptureIntent = new Intent(this, NewCaptureActivity.class);
-        locationHandler = new LocationHandler(this);
 
         Intent intent = getIntent();
 
@@ -174,15 +188,13 @@ public class CaptureActivity extends AppCompatActivity {
         routeCaptureBuilder.setVehicleType(vehicleType);
 
 
-        locationHandler.setViewModel(viewModel);
-        locationHandler.getViewModel().setCaptureModel(captureModel);
 
         ImageButton startCapture = findViewById(R.id.startCaptureButton);
-        TextView gpsIndicator = findViewById(R.id.gpsStateindicator);
         TextView captureStatus = findViewById(R.id.captureStatus);
         TextView routeNameDisplay = findViewById(R.id.routeNameDisplay);
         FloatingActionButton addStop = findViewById(R.id.addStop);
-        TextView distanceText = findViewById(R.id.distanceId);
+        gpsIndicator = findViewById(R.id.gpsStateindicator);
+        distanceText = findViewById(R.id.distanceId);
         Chronometer duration = findViewById(R.id.durationID);
         TextView stops = findViewById(R.id.stopsId);
         FloatingActionButton addPassenger = findViewById(R.id.addPassenger);
@@ -262,17 +274,6 @@ public class CaptureActivity extends AppCompatActivity {
             }
         });
 
-        locationHandler.getViewModel().getCapture().observe(this, captureModel -> {
-
-            double distance = (captureModel.getDistance() / 1000.0);
-            distanceText.setText(distance + "KM");
-
-            gpsIndicator.setText("GPS Accuracy: " + captureModel.getGpsAccuracy());
-
-
-        });
-
-
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @SuppressLint("UseCompatLoadingForDrawables")
             @Override
@@ -285,7 +286,7 @@ public class CaptureActivity extends AppCompatActivity {
                     duration.setBase(SystemClock.elapsedRealtime());
                     duration.start();
                     captureStatus.setText("Active");
-
+                    initializeLocationHandler();
                 } else {
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(CaptureActivity.this);

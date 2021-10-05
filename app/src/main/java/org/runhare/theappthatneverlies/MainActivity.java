@@ -16,6 +16,7 @@ import android.widget.Toast;
 import org.runhare.theappthatneverlies.Activities.CaptureActivity;
 import org.runhare.theappthatneverlies.Activities.NewCaptureActivity;
 import org.runhare.theappthatneverlies.Activities.ReviewActivity;
+import org.runhare.theappthatneverlies.Activities.UploadActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -89,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
                         SwitchActivity(ReviewActivity.class);
                         break;
                     case R.id.uploadButton:
+                        SwitchActivity(UploadActivity.class);
                         break;
 
                     default:

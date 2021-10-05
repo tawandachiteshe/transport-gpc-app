@@ -22,3 +22,7 @@ message RouteCapture {
   int32 passengers = 7;
 
 }
+
+service RouteCaptureController {
+  rpc Create(RouteCapture) returns (RouteCapture) {}
+}
